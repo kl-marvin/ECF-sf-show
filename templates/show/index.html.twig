@@ -29,17 +29,13 @@
                         </div>
                         <div class="card-footer text-center">
                             <div class="offset-1 col-10">
-                                <a href="#" class="btn btn-block btn-danger">Modifier</a>
+                                <a href="{{ path("editShow", {id: show.id}) }}" class="btn btn-block btn-danger">Modifier</a>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
                 </div>
             </div>
-
         </div>
     </div>
-
-
-
 {% endblock %}

@@ -16,6 +16,8 @@ class ShowController extends AbstractController
 {
     /**
      * @Route("/", name="show")
+     * @param ShowRepository $showRepository
+     * @return Response
      */
     public function index(ShowRepository $showRepository)
     {
@@ -48,5 +50,28 @@ class ShowController extends AbstractController
             'show' => $show,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/edit/{id}", name="editShow")
+     * @param EntityManagerInterface $em
+     * @param Request $req
+     * @param Show $show
+     * @return Response
+     */
+    public function editShow(EntityManagerInterface $em, Request $req, Show $show){
+
+        $form = $this->createForm(AddShowType::class, $show);
+        $form->handleRequest($req);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em->flush();
+            return $this->redirectToRoute("show");
+        }
+
+        return $this->render('show/editShow.html.twig', [
+            "form" => $form->createView()
+        ]);
+
     }
 }
