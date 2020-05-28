@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des salles{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="offset-1 col-10">
+                <h1 class="text-center mt-5">Liste des salles de concert</h1>
+
+
+                <table class="table table-striped table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom de la salle</th>
+                        <th scope="col">Address</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for venu in venues  %}
+                        <tr>
+                            <td>{{ venu.name }}</td>
+                            <td>{{ venu.address }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
