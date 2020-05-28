@@ -19,7 +19,19 @@
                         <div class="card-body">
                             <p>{{ show.comment }}</p>
                             <div class="mt-5">
-                                <div>Note : {{ show.rate }} ⭐</div>
+
+                                {% if show.rate == 1 %}
+                                    <div>Note : ⭐</div>
+                                {% elseif show.rate == 2 %}
+                                    <div>Note : ⭐⭐</div>
+                                {% elseif show.rate == 3 %}
+                                    <div>Note : ⭐⭐⭐</div>
+                                {% elseif show.rate == 4 %}
+                                    <div>Note : ⭐⭐⭐⭐</div>
+                                {% elseif show.rate == 5 %}
+                                    <div>Note : ⭐⭐⭐⭐⭐</div>
+                                {% endif %}
+
                                 <div>Style : {{ show.style }}</div>
                                 <div>Lieu : {{ show.city }}</div>
                             </div>
