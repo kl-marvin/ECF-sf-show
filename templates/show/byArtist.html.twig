@@ -9,8 +9,14 @@
                 <h1 class="text-center mt-4 mb-4"> 🎷🎸🎧 Concerts par Artiste 🎧 🎸🎷</h1>
                 <h5 class="text-center mb-4">La moyenne des concerts de cet artiste est de :
 
+
+
                     {% for rate in totalRate %}
-                    {{ rate.notes / rate.nbNotes }}/5
+                        {% if rate.nbNotes > 0 %}
+                             {{ rate.notes / rate.nbNotes }}/5
+                        {% else %}
+                            <p>pas encore de note</p>
+                        {% endif %}
                     {% endfor %}
 
                 </h5>
