@@ -54,9 +54,6 @@ class MusicalStyleFixtures extends Fixture
         $style->setName("Rock");
         $manager->persist($style);
 
-        $style = new MusicalStyle();
-        $style->setName("Heavy Metal");
-        $manager->persist($style);
 
         $manager->flush();
     }

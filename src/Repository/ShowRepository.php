@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\MusicalStyle;
 use App\Entity\Show;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -18,6 +19,39 @@ class ShowRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Show::class);
     }
+
+        public function getShowsByStyle($id){
+
+        $cnx = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT s.id as Show_id,
+	            a.name as Artist,
+	            s.name as TourName,
+                ms.name as Style,
+	            c.name as city,
+                v.name as Venu,
+                s.date as Date,
+                s.rate as Rate
+                FROM `show` as s
+	            JOIN venu as v
+                ON s.venu_id = v.id
+                JOIN city as c
+                ON s.city_id = c.id
+                JOIN artist as a
+                ON s.artist_id = a.id
+                JOIN musical_style as ms
+                ON s.style_id = ms.id
+                WHERE s.style_id = :id;';
+
+            $statment = $cnx->prepare($sql);
+            $statment->execute(['id' => $id]);
+
+            return $statment->fetchAll();
+
+        }
+
+
+
 
     // /**
     //  * @return Show[] Returns an array of Show objects

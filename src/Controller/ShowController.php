@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Show;
 use App\Form\AddShowType;
+use App\Repository\CityRepository;
+use App\Repository\MusicalStyleRepository;
 use App\Repository\ShowRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,13 +19,20 @@ class ShowController extends AbstractController
     /**
      * @Route("/", name="show")
      * @param ShowRepository $showRepository
+     * @param MusicalStyleRepository $musicalStyleRepository
+     * @param CityRepository $cityRepository
      * @return Response
      */
-    public function index(ShowRepository $showRepository)
+    public function index(ShowRepository $showRepository, MusicalStyleRepository $musicalStyleRepository, CityRepository $cityRepository)
     {
         $shows = $showRepository->findAll();
+        $styles = $musicalStyleRepository->findAll();
+        $cities = $cityRepository->findAll();
+
         return $this->render('show/index.html.twig', [
-            'shows' => $shows
+            'shows' => $shows,
+            'styles' => $styles,
+            'cities' => $cities
         ]);
     }
 
@@ -72,6 +81,21 @@ class ShowController extends AbstractController
         return $this->render('show/editShow.html.twig', [
             "form" => $form->createView()
         ]);
+    }
 
+    /**
+     * @Route("/genre/{id}", name="byStyle")
+     * @param $id
+     * @param ShowRepository $showRepository
+     * @return Response
+     */
+    public function byStyle($id, ShowRepository $showRepository){
+
+        $shows = $showRepository->getShowsByStyle($id);
+
+        return $this->render('show/byStyle.html.twig', [
+            'showsbyStyle' => $shows
+
+        ]);
     }
 }

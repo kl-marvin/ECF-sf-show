@@ -4,16 +4,13 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="offset-1 col-10 mt-5">
+            <div class="offset-1 col-7 mt-5">
                 <h1 class="text-center">  🎷🎸🎧 Liste des concerts  🎧 🎸🎷</h1>
-
-                <div class="card-deck mt-3 ">
                 {% for show in shows %}
-                    <div class="card text-white bg-dark  ">
+                    <div class="card offset-2 col-8 text-white bg-dark mt-3  mb-2">
                         <div class="card-header text-center">
-
                             <h3 class="">{{ show.artist }} présente le {{ show.name }}</h3>
                             <p>{{ show.date|date('d/m/Y') }} <br>
                                 {{ show.venu }}
@@ -33,9 +30,28 @@
                             </div>
                         </div>
                     </div>
+
                 {% endfor %}
+
+            </div>
+            <div class="col-2 offset-1 mt-5">
+                <div class="col-12">
+                    <h4 class="text-center">Concert par Genre</h4>
+                    {% for style in styles %}
+                        <a href="{{ path("byStyle", {id: style.id}) }}" class="badge badge-pill badge-primary">{{ style.name }}</a>
+                    {% endfor %}
                 </div>
+                <div class="col-12 mt-5">
+                    <hr>
+                    <h4 class="text-center">Concert par Ville</h4>
+                    {% for city in cities %}
+                        <a href="#" class="badge  badge-pill badge-success">{{ city.name }}</a>
+                    {% endfor %}
+                </div>
+
+
             </div>
         </div>
-    </div>
+
+        </div>
 {% endblock %}
