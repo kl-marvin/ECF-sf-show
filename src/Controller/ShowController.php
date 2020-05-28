@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Show;
 use App\Form\AddShowType;
+use App\Repository\ArtistRepository;
 use App\Repository\CityRepository;
 use App\Repository\MusicalStyleRepository;
 use App\Repository\ShowRepository;
+use App\Repository\VenuRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,18 +23,24 @@ class ShowController extends AbstractController
      * @param ShowRepository $showRepository
      * @param MusicalStyleRepository $musicalStyleRepository
      * @param CityRepository $cityRepository
+     * @param ArtistRepository $artistRepository
      * @return Response
      */
-    public function index(ShowRepository $showRepository, MusicalStyleRepository $musicalStyleRepository, CityRepository $cityRepository)
+    public function index(ShowRepository $showRepository,
+                          MusicalStyleRepository $musicalStyleRepository,
+                          CityRepository $cityRepository,
+                          ArtistRepository $artistRepository)
     {
         $shows = $showRepository->findAll();
         $styles = $musicalStyleRepository->findAll();
         $cities = $cityRepository->findAll();
+        $artists = $artistRepository->findAll();
 
         return $this->render('show/index.html.twig', [
             'shows' => $shows,
             'styles' => $styles,
-            'cities' => $cities
+            'cities' => $cities,
+            'artists' => $artists
         ]);
     }
 
@@ -90,7 +98,6 @@ class ShowController extends AbstractController
      * @return Response
      */
     public function byStyle($id, ShowRepository $showRepository){
-
         $shows = $showRepository->getShowsByStyle($id);
 
         return $this->render('show/byStyle.html.twig', [
@@ -98,4 +105,52 @@ class ShowController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @param $id
+     * @param ShowRepository $showRepository
+     * @return Response
+     * @Route("/ville/{id}", name="byCity")
+     */
+    public function byCity($id, ShowRepository $showRepository){
+        $shows = $showRepository->getShowsByCity($id);
+
+        return $this->render('show/byCity.html.twig', [
+            'showsbyCity' => $shows
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @param ShowRepository $showRepository
+     * @return Response
+     * @Route("/artiste/{id}", name="byArtist")
+     */
+    public function byArtist($id, ShowRepository $showRepository){
+        $shows = $showRepository->getShowsByArtist($id);
+
+        $totalRate = $showRepository->getArtistTotalRate($id);
+
+        //var_dump($totalRate);
+
+        return $this->render('show/byArtist.html.twig', [
+            'showsbyArtist' => $shows,
+            'totalRate' => $totalRate
+        ]);
+    }
+
+    /**
+     * @Route("/salles", name="venues")
+     * @param VenuRepository $venuRepository
+     * @return Response
+     */
+    public function venus(VenuRepository $venuRepository){
+
+        $venues = $venuRepository->findAll();
+
+        return $this->render('show/venues.html.twig', [
+            'venues' => $venues
+        ]);
+    }
+
 }

@@ -26,7 +26,7 @@
                         </div>
                         <div class="card-footer text-center">
                             <div class="offset-1 col-10">
-                                <a href="{{ path("editShow", {id: show.id}) }}" class="btn btn-block btn-danger">Modifier</a>
+                                <a href="{{ path("editShow", {id: show.id}) }}" class="btn btn-block btn-secondary">Modifier</a>
                             </div>
                         </div>
                     </div>
@@ -36,20 +36,25 @@
             </div>
             <div class="col-2 offset-1 mt-5">
                 <div class="col-12">
-                    <h4 class="text-center">Concert par Genre</h4>
+                    <h4 class="text-center">Concerts par Genre</h4>
                     {% for style in styles %}
                         <a href="{{ path("byStyle", {id: style.id}) }}" class="badge badge-pill badge-primary">{{ style.name }}</a>
                     {% endfor %}
                 </div>
                 <div class="col-12 mt-5">
                     <hr>
-                    <h4 class="text-center">Concert par Ville</h4>
+                    <h4 class="text-center">Concerts par Ville</h4>
                     {% for city in cities %}
-                        <a href="#" class="badge  badge-pill badge-success">{{ city.name }}</a>
+                        <a href="{{ path("byCity", {id: city.id}) }}" class="badge  badge-pill badge-success">{{ city.name }}</a>
                     {% endfor %}
                 </div>
-
-
+                <div class="col-12 mt-5">
+                    <hr>
+                    <h4 class="text-center">Concerts par Artiste ou Groupe</h4>
+                    {% for artist in artists %}
+                        <a href="{{ path("byArtist", {id: artist.id}) }}" class="badge  badge-pill badge-danger">{{ artist.name }}</a>
+                    {% endfor %}
+                </div>
             </div>
         </div>
 

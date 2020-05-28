@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Concert par genre{% endblock %}
+{% block title %}Concert par Ville{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="row">
             <div class="offset-2 col-8">
-                <h1 class="text-center mt-4 mb-4"> 🎷🎸🎧 Concerts par Genre 🎧 🎸🎷</h1>
+                <h1 class="text-center mt-4 mb-4"> 🎷🎸🎧 Concerts par Ville 🎧 🎸🎷</h1>
 
                 <table class="table table-striped table-dark">
                     <thead>
@@ -19,14 +19,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for show in showsbyStyle  %}
-                    <tr>
-                        <td>{{show.Artist}}</td>
-                        <td>{{ show.TourName}}</td>
-                        <td>{{ show.Venu}} de {{ show.city }}</td>
-                        <td>{{ show.Date|date('d/m/Y') }}</td>
-                        <td>{{ show.Rate }} ⭐</td>
-                    </tr>
+                    {% for show in showsbyCity  %}
+                        <tr>
+                            <td>{{show.Artist}}</td>
+                            <td>{{ show.TourName}}</td>
+                            <td>{{ show.Venu}} de {{ show.city }}</td>
+                            <td>{{ show.Date|date('d/m/Y') }}</td>
+                            <td>{{ show.Rate }} ⭐</td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>

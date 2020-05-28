@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Concert par Artiste{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="offset-1 col-10">
+                <h1 class="text-center mt-4 mb-4"> 🎷🎸🎧 Concerts par Artiste 🎧 🎸🎷</h1>
+                <h5 class="text-center mb-4">La moyenne des concerts de cet artiste est de :
+
+                    {% for rate in totalRate %}
+                    {{ rate.notes / rate.nbNotes }}/5
+                    {% endfor %}
+
+                </h5>
+
+
+                <table class="table table-striped table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">Artiste / Groupe</th>
+                        <th scope="col">Tournée</th>
+                        <th scope="col">Salle</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Note du Concert</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for show in showsbyArtist  %}
+                        <tr>
+                            <td>{{show.Artist}}</td>
+                            <td>{{ show.TourName}}</td>
+                            <td>{{ show.Venu}} de {{ show.city }}</td>
+                            <td>{{ show.Date|date('d/m/Y') }}</td>
+                            <td class="text-center">{{ show.Rate }} ⭐</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
