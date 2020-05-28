@@ -3,13 +3,43 @@
 {% block title %}Liste de Concert{% endblock %}
 
 {% block body %}
-    <h1>Liste des concerts</h1>
-    {% for show in shows %}
-        <p>{{ show.artist }} présente le {{ show.name }}</p>
-        <p>{{ show.comment }}</p>
-        <p>Rating {{ show.rate }}</p>
-        <p>{{ show.date|date('d/m/Y') }}</p>
-        <p>{{ show.venu }} - {{ show.city }}</p>
-        <p>Genre : {{ show.style }}</p>
-    {% endfor %}
+
+    <div class="container">
+        <div class="row">
+            <div class="offset-1 col-10 mt-5">
+                <h1 class="text-center">  🎷🎸🎧 Liste des concerts  🎧 🎸🎷</h1>
+
+                <div class="card-deck mt-3 ">
+                {% for show in shows %}
+                    <div class="card text-white bg-dark  ">
+                        <div class="card-header text-center">
+
+                            <h3 class="">{{ show.artist }} présente le {{ show.name }}</h3>
+                            <p>{{ show.date|date('d/m/Y') }} <br>
+                                {{ show.venu }}
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ show.comment }}</p>
+                            <div class="mt-5">
+                                <div>Note : {{ show.rate }} ⭐</div>
+                                <div>Style : {{ show.style }}</div>
+                                <div>Lieu : {{ show.city }}</div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="offset-1 col-10">
+                                <a href="#" class="btn btn-block btn-danger">Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
 {% endblock %}
